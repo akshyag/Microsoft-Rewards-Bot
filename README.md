@@ -17,14 +17,15 @@ This program will automatically complete search requests and quizzes on Microsof
 - Supports unlimited accounts via JSON, in randomized order.  
 - Randomized search speeds   
 - Logs errors and info by default, can log executed commands and search terms via changing log.level to logging.DEBUG
-- Tested and confirmed working for U.S. (more to come!)  
+- Tested and confirmed working for U.S. and U.K. (more to come!)  
 
 <h2>REQUIREMENTS</h2>
 
 - Python 3.6
 - Requests 2.21.0
 - Selenium 3.14.0
-- Geckodriver for Selenium 
+
+- Chrome Browser 
 
 <h2>HOW TO USE</h2> 
 
@@ -38,11 +39,12 @@ This program will automatically complete search requests and quizzes on Microsof
 		- `--mobile` is for mobile search
 		- `--pc` is for pc search
 		- `--quiz` is for quiz search  
+		- `-a` or `--all` is short for mobile, pc, and quiz search
 	- Script by will execute mobile, pc, edge, searches, and complete quizzes for all accounts (can change this setting in the .py file)
 	- Script by default will run headlessly (can change this setting in the .py file)  
 	- Run time for one account is under 5 minutes, for 100% daily completion 
-	- If python environment variable is not set, enter `/path/to/python/executable ms_rewards.py`
-4a. For completing points from email links:
+	- If python environment variable is not set, enter `/path/to/python/executable ms_rewards.py`  
+5. For completing points from email links:
 	- Modify email_links.txt file with email links.
 		- Copy and paste links without surrounding quotes, each on individual line, like such:
 
@@ -53,20 +55,11 @@ This program will automatically complete search requests and quizzes on Microsof
 	- Enter cmd/terminal/shell argument `python ms_rewards.py --email`
 	- **Script will be manual, requires key press to continue, as the quizzes are not yet standardized.**
 	 
-5. Crontab (Optional for automated script daily on linux)  
+6. Crontab (Optional for automated script daily on linux)  
 	- Enter in terminal: `crontab -e`
 	- Enter in terminal: `0 12 * * * /path/to/python /path/to/ms_rewards.py --headless --mobile --pc --quiz`
 		- Can change the time from 12am server time to whenever the MS daily searches reset (~12am PST)
 	- Change the paths to the json in the .py file to appropriate path
-
-NOTE: If geckodriver for selenium is missing:
-
-General Instructions (Windows, Linux, OS X)
-1. download [geckodriver here](https://github.com/mozilla/geckodriver)
-2. extract to python parent directory e.g. 'C:\Python37-22'
-
-Or if on OS X/Linux
-1. `brew install geckodriver`
 
 
 <h2>TO DO</h2>
@@ -87,6 +80,45 @@ Or if on OS X/Linux
 
 <h2>Versions</h2>  
 
+**2019.04.03**
+
+    - Added fix for wait_until_visible from .find_element to .find_elements
+
+**2019.04.02**
+
+    - Added adreo00's code for setting log level with argparse
+
+**2019.04.01**  
+
+    - Added fix for detecting pcpoints element during point status check
+    - Removed edge points as the status screen no longer displays them
+
+**2019.03.01**
+
+    - Incorporated ShoGinn's lightning quiz fix
+    - Fixed .cico quiz close patch
+    - Added const for logging level
+    
+**2019.02.02**
+
+    - Fixed open offer link to target the link
+
+**2019.02.01**
+
+    - Added chromedriver auto-downloading
+
+**2019.01.01**  
+
+    - Error handling for 'credits2', function should exit and script should continue to execute.
+
+**2019.01**  
+
+    - Migrated to chrome/chromedriver 
+	    - Immediate improvement in speed and stability over firefox/geckodriver
+	    - Appears to use less RAM than firefox (suprisingly..)
+	    - May be possible to run on raspberrypi (rpi has chromedriver)
+	- Mitigated credits2 error by performing an action before going to search URL
+	
 **2018.04**  
 
     - Performance improvements
@@ -115,4 +147,7 @@ Or if on OS X/Linux
 **2018.01**
 
 	- Initial release
-	- Basic functionality for completing searches and quizzes.
+	- Basic functionality for completing searches and quizzes.  
+
+<h4>Special Thanks</h4>
+@ShoGinn - for extraordinary assistance in making this project better!
